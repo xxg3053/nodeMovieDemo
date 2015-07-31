@@ -20,11 +20,12 @@
 	npm install bower -g
 	bower install bootstrap 
 
-views 目录下：index.jade,admin.jade,detail.jade,list.jade
+views 目录下：index.jade, admin.jade, detail.jade, list.jade
 
-测试：
-localhost:3000/
-localhost:3000/movie/1
-localhost:3000/admin/movie
-localhost:3000/admin/list
+### 测试：
+
+	localhost:3000/
+	localhost:3000/movie/1
+	localhost:3000/admin/movie
+	localhost:3000/admin/list
 
