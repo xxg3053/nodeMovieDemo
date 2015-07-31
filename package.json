@@ -1,0 +1,18 @@
+{
+  "name": "moviepro",
+  "version": "0.0.1",
+  "description": "学习nodejs的第一个demo",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "jade": "^1.11.0",
+    "moment": "^2.10.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kenfo",
+  "license": "ISC"
+}
