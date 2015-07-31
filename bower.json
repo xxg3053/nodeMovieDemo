@@ -1,0 +1,26 @@
+{
+  "name": "moviePro",
+  "version": "0.0.1",
+  "homepage": "https://github.com/xxg3053/nodeMovieDemo",
+  "authors": [
+    "xxg3053 <xxg3053@qq.com>"
+  ],
+  "description": "学习nodejs的一个实例",
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongoDB"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/assets/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
