@@ -4,14 +4,15 @@ block content
 	.container
 		.row
 			form.form-horizontal(method="post", action="/admin/movie/new")
+				input(type="hidden", name="movie[_id]", value='#{movie._id}')
 				.form-group
 					label.col-sm-2.control-label(for="title") 电影名字
 					div.col-sm-10
 						input#title.form-control(type="text", name="movie[title]", value=movie.title)
 				.form-group
-					label.col-sm-2.control-label(for="director") 导演
+					label.col-sm-2.control-label(for="doctor") 导演
 					div.col-sm-10
-						input#director.form-control(type="text", name="movie[director]", value=movie.director)
+						input#doctor.form-control(type="text", name="movie[doctor]", value=movie.doctor)
 				.form-group
 					label.col-sm-2.control-label(for="year") 上映年份
 					div.col-sm-10
@@ -28,10 +29,6 @@ block content
 					label.col-sm-2.control-label(for="poster") 封面
 					div.col-sm-10
 						input#poster.form-control(type="text", name="movie[poster]", value=movie.poster)
-				.form-group
-					label.col-sm-2.control-label(for="uploadPoster") 封面
-					div.col-sm-10
-						input#uploadPoster(type="file", name="uploadPoster")
 				.form-group
 					label.col-sm-2.control-label(for="flash") 视频地址
 					div.col-sm-10

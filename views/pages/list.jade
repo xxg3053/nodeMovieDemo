@@ -10,7 +10,7 @@ block content
             th 导演
             th 国家
             th 上映年份
-            //- th 录入时间
+            th 录入时间
             th pv
             th 查看
             th 更新
@@ -19,10 +19,10 @@ block content
           each item in movies
             tr(class="item-id-#{item._id}")
               td #{item.title}
-              td #{item.director}
+              td #{item.doctor}
               td #{item.country}
               td #{item.year}
-              //- td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
+              td #{moment(item.meta.updateAt).format('MM/DD/YYYY')}
               td #{item.pv}
               td: a(target="_blank",href="/movie/#{item._id}") 查看
               td: a(target="_blank",href="/admin/movie/update/#{item._id}") 修改
