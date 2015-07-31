@@ -1,5 +1,6 @@
 # moviePro
 学习nodejs的第一个demo
+[学习视频](http://www.imooc.com/learn/75)
 
 * 后端：nodejs 
 * 数据库：mongoDB
