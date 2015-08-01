@@ -1,5 +1,5 @@
 # moviePro
-学习nodejs的第一个demo
+学习nodejs movie 第二期
 [学习视频](http://www.imooc.com/learn/75)
 
 * 后端：nodejs 
