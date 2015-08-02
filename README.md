@@ -1,27 +1,23 @@
 # moviePro
 学习nodejs movie 第二期
-[学习视频](http://www.imooc.com/learn/75)
+[学习视频](http://www.imooc.com/learn/197)
 
-* 后端：nodejs 
-* 数据库：mongoDB
-* web服务：express
-* 数据建模：mongoose
-* 前端模板：jade
-* 时间格式化工具：Moment.js
-* 前端依赖管理：bower
-* 类库：jquery bootstrap
-* grunt
 
-### 环境搭配
+### grunt 自动重启
 
-	cd moviePro
-	npm install express --save-dev
-	npm install jade --save-dev
-	npm install mongoose --save-dev
-	npm install bower -g
-	bower install bootstrap 
+npm install grunt --save-dev
 
-views 目录下：index.jade, admin.jade, detail.jade, list.jade
+npm install grunt-contrib-watch --save-dev
+npm install grunt-nodemon --save-dev
+npm install grunt-concurrent --save-dev
+
+编写*gruntfile.js*
+
+### 加密
+md5
+
+npm install bcrypt --save
+
 
 ### 测试：
 

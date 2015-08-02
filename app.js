@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var _ = require('underscore'); //更新字段
+
 var Movie = require('./models/movie');
 var port = process.env.PORT || 3000;
 var app = express();
