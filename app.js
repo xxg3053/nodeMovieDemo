@@ -3,8 +3,11 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var _ = require('underscore'); //更新字段
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 var Movie = require('./models/movie');
+var User = require('./models/user');
 var port = process.env.PORT || 3000;
 var app = express();
 
@@ -16,6 +19,13 @@ app.set('view engine','jade');
 //app.set('port',3000);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());//格式化提交表单
+
+// session and cookie Parser
+app.use(cookieParser());
+app.use(session({
+	secret:'Moive'
+}));
+
 app.use(express.static(path.join(__dirname,'public')));
 
 app.locals.moment = require('moment')//格式化时间
@@ -26,6 +36,9 @@ console.log('server started on port ' + port);
 
 //index page
 app.get('/',function(req,res){
+	console.log('user in session:');
+	console.log(req.session.user);
+
 	Movie.fetch(function(err,movies){
 		if(err){
 			console.log(err);
@@ -36,20 +49,75 @@ app.get('/',function(req,res){
 			movies:movies
 		})
 	})
- // res.render('index',{
- // 	title:'首页',
- // 	//测试数据
- // 	movies:[{
- // 		title:'机械战警',
- // 		_id:1,
- // 		poster:'http://img0.bdstatic.com/img/image/6446027056db8afa73b23eaf953dadde1410240902.jpg'
- // 	},{
- // 		title:'星际旅行',
- // 		_id:2,
- // 		poster:'http://tupian.qqjay.com/u/2013/0628/33_1730_2.jpg'
- // 	}]
- // });
 });
+
+//signup
+app.post('/user/signup',function(req,res) {
+	var _user = req.body.user
+	//req.params.user
+
+	User.find({name:_user.name},function(err,user){
+		if(err){
+			console.log(err);
+		}
+		if(user){
+			return res.redirect('/')
+		}
+		else{
+			var user = new User(_user);
+			user.save(function(err,user){
+				if(err){
+					console.log(err);
+				}
+				//console.log(user);
+				res.redirect('/admin/userlist');
+			})
+		}
+	})
+	
+});
+//user signin
+app.post('/user/signin',function(req,res){
+	var _user = req.body.user;
+	var name = _user.name;
+	var password = _user.password;
+
+	User.findOne({name:name},function(err,user){
+		if(err){
+			console.log(err);
+		}
+		if(!user){
+			return res.redirect('/')
+		}
+
+		user.comparePassword(password,function(err,isMatch){
+			if(err){
+				console.log(err)
+			}
+			if(isMatch){
+				//console.log('signin success')
+				req.session.user = user;
+				return res.redirect('/')
+			}
+			else{
+				console.log('password is not matched')
+			}
+		})
+	})
+})
+
+//user list page
+app.get('/admin/userList',function(req,res){
+	User.fetch(function(err,users){
+		if(err){
+			console.log(err)
+		}
+		res.render('userlist',{
+			title:'用户列表',
+			users:users
+		})
+	})
+})
 
 //detail page
 app.get('/movie/:id',function(req,res){
@@ -63,20 +131,6 @@ app.get('/movie/:id',function(req,res){
 			movie:movie
 		})
 	})
- // 测试数据
- // res.render('detail',{
- // 	title:'详情',
- // 	movie:{
- // 		doctor:'张艺谋',
- // 		country:'中国',
- // 		title:'满城尽带黄金甲',
- // 		year:2013,
- // 		poster:'http://tupian.qqjay.com/u/2013/0628/33_1730_2.jpg',
- // 		language:'中文',
- // 		flash:'http://player.youku.com/player.php/sid/XMTI5NTExODEyOA==/v.swf',
- // 		summary:'描述了xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
- // 	}
- // });
 });
 
 
@@ -163,24 +217,9 @@ app.get('/admin/',function(req,res){
 			movies:movies
 		})
 	})
-
-  // 测试数据
- // res.render('list',{
- // 	title:'列表',
- // 	movies:[{
- // 		doctor:'张艺谋',
- // 		country:'中国',
- // 		title:'满城尽带黄金甲',
- // 		year:2013,
- // 		poster:'http://tupian.qqjay.com/u/2013/0628/33_1730_2.jpg',
- // 		language:'中文',
- // 		flash:'',
- // 		summary:'描述了xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
- // 	}]
- // });
 });
 
-// list delete movie
+// delete movie
 app.delete('/admin/list',function(req,res){
 	var id = req.query.id;
 

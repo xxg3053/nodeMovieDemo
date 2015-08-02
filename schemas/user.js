@@ -44,7 +44,24 @@ UserSchema.pre('save',function(next){
 	// })
 	next()
 })
+//实例方法
+UserSchema.methods = {
+	comparePassword:function(_password,cb){
+		// bcrypt.compare(_password,this.password,function(err,isMatch){
+		// 	if(err) return cb(err)
 
+		// 	cb(null,isMatch)
+		// })
+		if(_password == this.password){
+			cb(null,true)
+		}
+		else{
+			return false;
+		}
+	}
+}
+
+//静态方法，对象可以直接调用
 UserSchema.statics = {
 	fetch:function(cb){
 		return this
