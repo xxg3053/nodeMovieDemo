@@ -26,3 +26,35 @@ npm install bcrypt --save
 	localhost:3000/admin/movie
 	localhost:3000/admin/list
 
+
+### 遇到问题
+
+使用 express 4.x以后：
+>	require('connect-mongo')(express)
+	throw new Error('Most middlewa...
+
+解决[办法](https://cnodejs.org/topic/5350c12d1969a7b22a65ea6f)：
+
+
+	书中是基于Express 3.x 版本进行开发的, 在 Express 升级到4.x 之后session中间件已经不再内置了, 需要自己安装, 并且使用方式也不一样了.
+	Express 4.x 中使用方式改为了这样:
+
+	var session = require('express-session');
+	var MongoStore = require('connect-mongo')(session);
+
+	app.use(session({
+	    secret: 'foo',
+	    store: new MongoStore(options)
+	}));
+
+	而 Express 3.x 中是这样的:
+
+	var MongoStore = require('connect-mongo')(express);
+
+	app.use(express.session({
+	    secret: 'foo',
+	    store: new MongoStore(options)
+	}));
+
+
+
