@@ -2,6 +2,8 @@ var Index = require('../app/controllers/index');
 var User = require('../app/controllers/user');
 var Movie = require('../app/controllers/movie');
 var Comment = require('../app/controllers/comment');
+var Catetory = require('../app/controllers/catetory');
+
 
 module.exports = function(app){
 	//pre handle user
@@ -23,11 +25,19 @@ module.exports = function(app){
 	app.get('/movie/:id',Movie.detail)
 	app.get('/admin/movie/new',User.siginRequired,User.adminRequired,Movie.new)
 	app.get('/admin/movie/update/:id',User.siginRequired,User.adminRequired,Movie.update)
-	app.post('/admin/movie',User.siginRequired,User.adminRequired,Movie.save)
+	app.post('/admin/movie/save',User.siginRequired,User.adminRequired,Movie.save)
 	app.get('/admin/movie/list',User.siginRequired,User.adminRequired,Movie.list)
 	app.get('/admin/movie/list',User.siginRequired,User.adminRequired,Movie.del)
 
 	//comment
 	app.post('/user/comment',User.siginRequired,Comment.save)
+
+	//catetory
+	app.get('/admin/catetory/new',User.siginRequired,User.adminRequired,Catetory.new)
+	app.get('/admin/catetory/list',User.siginRequired,User.adminRequired,Catetory.list)
+	app.post('/admin/catetory/save',User.siginRequired,User.adminRequired,Catetory.save)
+
+	//search
+	app.get('/results',Index.search)
 	
 }
